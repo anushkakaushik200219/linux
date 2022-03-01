@@ -31,41 +31,71 @@ This tutorial will help you get started with Linux.
     
  
 -    Basic Commands and Directory Hierarchy
+
     --   Bourne Shell/Shell
+    
     --   Basic and Intermediate Commands
+    
     --   Files modes and permission
+    
     --   Navigating Linux Directory
+    
     --   Archiving, Compressing, and Dot file
+    
  
  
 -    Devices, Disk, and Filesystem
+
     --   Device Name Summary
+    
     --   Filesystem
+    
     --   Partitioning Disk and Swap space
+    
  
  
 -    How the Linux Kernal Boot and User Space Start
+    
     --   Kernal Parameters
+    
     --   Boot Loaders
+    
     --   GRUB and UEFI
+    
     --   INIT
+    
     --   System V Runlevels
+    
 -    Processes and Resource Utilization
+    
     --   System Call
+    
     --   Tracing Program Execution
+    
     --   Resource Monitoring
+    
     --   I/O Monitoring
+    
  
 -    Networking and Its Configuration
+    
     --   Network Basic
+    
     --   Resolving Hostnames
+    
     --   Firewalls
+    
     --   SSH
+    
     --   Diagnostic Tools (Isof, tcpdump, netcat, Port scanning )
     
+    
 -    Shell Scripting
+
     --   Basics
+    
     --   Shell Script Utilities
+    
 
 # INTRODUCTION
 - # Components of Linux
