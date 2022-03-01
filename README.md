@@ -1,6 +1,3 @@
-# linux
-
-
 # LINUX
 
 This tutorial will help you get started with Linux.
