@@ -2,20 +2,18 @@
 
 # LINUX
 
-#### This tutorial will help you get started with Linux.
+   #### This tutorial will help you get started with Linux.
 
 
 
-```bash
- #### Audience of this tutorial are beginners, so don't expect advanced concepts.
-```
+
+   #### Audience of this tutorial are beginners, so don't expect advanced concepts.
+
 
 
 ## Pre-requisite:
  
- ```bash
-  AWS Account or any Linux Distribution.
-```
+      AWS Account or any Linux Distribution.
 
 
 # Table of Content:
