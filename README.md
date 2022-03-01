@@ -479,3 +479,171 @@ dot files unless you explicitly use a pattern such as .*.
         You can run into problems with globs because .* matches . and .. (the current and
         parent directories). You may wish to use a pattern such as .[^.]* or .??* to get all
         dot files except the current and parent directories.
+ 
+ - ## Device Name Summary
+
+It can sometimes be difficult to find the name of a device (for example,
+when partitioning a disk). Here are a few ways to find out what it is:
+- Query udevd using udevadm 
+- Look for the device in the /sys directory.
+- Guess the name from the output of the dmesg command (which prints the
+last few kernel messages) or the kernel system log file
+This output might contain a description of the devices on your system.
+- For a disk device that is already visible to the system, you can check the
+output of the mount command.
+- Run cat /proc/devices to see the block and character devices for which
+your system currently has drivers. Each line consists of a number and
+name. The number is the major number of the device as described in
+If you can guess the device from the name, look in /dev for
+the character or block devices with the corresponding major number,
+and you’ve found the device files.
+
+#### Among these methods, only the first is reliable, but it does require udev. If you get into a situation where udev is not available, try the other methods but keep in mind that the kernel might not have a device file for your hardware.
+
+- ## Filesystems
+
+The last link between the kernel and user space for disks is typically the filesystem;
+this is what you’re accustomed to interacting with when you run commands
+such as ls and cd. As previously mentioned, the filesystem is a form
+of database; it supplies the structure to transform a simple block device
+into the sophisticated hierarchy of files and subdirectories that users can
+understand.
+
+At one time, filesystems resided on disks and other physical media used
+exclusively for data storage. However, the tree-like directory structure and
+I/O interface of filesystems are quite versatile, so filesystems now perform a
+variety of tasks, such as the system interfaces that you see in /sys and /proc.
+
+#### Creating a Filesystem
+Once you’re done with the partitioning process described in Section 4.1,
+you’re ready to create filesystems. As with partitioning, you’ll do this in
+user space because a user-space process can directly access and manipulate
+a block device. The mkfs utility can create many kinds of filesystems. For
+example, you can create an ext4 partition on /dev/sdf2 with this command:
+
+        # mkfs -t ext4 /dev/sdf2
+
+And there’s even more indirection. Inspect the mkfs.* files behind the
+commands and you’ll see the following:
+
+        $ ls -l /sbin/mkfs.*
+        -rwxr-xr-x 1 root root 17896 Mar 29 21:49 /sbin/mkfs.bfs
+        -rwxr-xr-x 1 root root 30280 Mar 29 21:49 /sbin/mkfs.cramfs
+        lrwxrwxrwx 1 root root 6 Mar 30 13:25 /sbin/mkfs.ext2 -> mke2fs
+        lrwxrwxrwx 1 root root 6 Mar 30 13:25 /sbin/mkfs.ext3 -> mke2fs
+        lrwxrwxrwx 1 root root 6 Mar 30 13:25 /sbin/mkfs.ext4 -> mke2fs
+        lrwxrwxrwx 1 root root 6 Mar 30 13:25 /sbin/mkfs.ext4dev -> mke2fs
+        -rwxr-xr-x 1 root root 26200 Mar 29 21:49 /sbin/mkfs.minix
+        lrwxrwxrwx 1 root root 7 Dec 19 2011 /sbin/mkfs.msdos -> mkdosfs
+        lrwxrwxrwx 1 root root 6 Mar 5 2012 /sbin/mkfs.ntfs -> mkntfs
+        lrwxrwxrwx 1 root root 7 Dec 19 2011 /sbin/mkfs.vfat -> mkdosfs        
+
+To mount a filesystem, use the mount command as follows with the filesystem
+type, device, and desired mount point:
+
+        # mount -t type device mountpoint
+
+For example, to mount the Fourth Extended filesystem /dev/sdf2 on
+/home/extra, use this command:
+
+        # mount -t ext4 /dev/sdf2 /home/extra  
+
+#### To unmount
+(detach) a filesystem, use the umount command:
+
+        # umount mountpoint             
+
+To view a list of devices and the corresponding filesystems and UUIDs
+on your system, use the blkid (block ID) program:
+
+        # blkid
+        /dev/sdf2: UUID="a9011c2b-1c03-4288-b3fe-8ba961ab0898" TYPE="ext4"
+        /dev/sda1: UUID="70ccd6e7-6ae6-44f6-812c-51aab8036d29" TYPE="ext4"
+        /dev/sda5: UUID="592dcfd1-58da-4769-9ea8-5f412a896980" TYPE="swap"
+        /dev/sde1: SEC_TYPE="msdos" UUID="3762-6138" TYPE="vfat"        
+
+- ## Partitioning Disk Devices
+
+There are many kinds of partition tables. The traditional table is the one
+found inside the Master Boot Record (MBR). A newer standard starting to
+gain traction is the Globally Unique Identifier Partition Table (GPT).
+
+Here is an overview of the many Linux partitioning tools available:
+
+### parted 
+A text-based tool that supports both MBR and GPT.
+
+### gparted 
+A graphical version of parted.        
+
+### fdisk 
+The traditional text-based Linux disk partitioning tool. fdisk
+does not support GPT.
+### gdisk 
+A version of fdisk that supports GPT but not MBR.
+
+Because it supports both MBR and GPT, we’ll use parted in this book.
+However, many people prefer the fdisk interface, and there’s nothing wrong
+with that.
+
+* ## Viewing a Partition Table
+You can view your system’s partition table with parted -l. Here is sample output
+from two disk devices with two different kinds of partition tables:
+        # parted -l
+        Model: ATA WDC WD3200AAJS-2 (scsi)
+        Disk /dev/sda: 320GB
+        Sector size (logical/physical): 512B/512B
+        Partition Table: msdos
+        Number Start End Size Type File system Flags
+        1 1049kB 316GB 316GB primary ext4 boot
+        2 316GB 320GB 4235MB extended
+        5 316GB 320GB 4235MB logical linux-swap(v1)
+        Model: FLASH Drive UT_USB20 (scsi)
+        Disk /dev/sdf: 4041MB
+        Sector size (logical/physical): 512B/512B
+        Partition Table: gpt
+        Number Start End Size File system Name Flags
+        1 17.4kB 1000MB 1000MB myfirst
+        2 1000MB 4040MB 3040MB mysecond
+
+- ## Swap Space
+
+Not every partition on a disk contains a filesystem. It’s also possible to augment
+the RAM on a machine with disk space. If you run out of real memory,
+the Linux virtual memory system can automatically move pieces of memory
+to and from a disk storage. This is called swapping because pieces of idle programs
+are swapped to the disk in exchange for active pieces residing on the
+disk. The disk area used to store memory pages is called swap space (or just
+swap for short).
+
+The free command’s output includes the current swap usage in kilobytes
+as follows:
+
+        $ free
+                        total    used     free
+        --snip--
+        Swap:           514072  189804    324268
+
+### Using a Disk Partition as Swap Space
+
+To use an entire disk partition as swap, follow these steps:
+-  1.Make sure the partition is empty.
+- 2.Run mkswap dev, where dev is the partition’s device. This command puts a swap signature on the partition.
+- 3.Execute swapon dev to register the space with the kernel.        
+
+Here is a sample entry that uses /dev/sda5 as a swap partition:
+
+        /dev/sda5 none swap sw 0 0
+
+ ### Using a File as Swap Space
+You can use a regular file as swap space if you’re in a situation where you
+would be forced to repartition a disk in order to create a swap partition.
+You shouldn’t notice any problems when doing this.
+Use these commands to create an empty file, initialize it as swap, and
+add it to the swap pool:
+
+        # dd if=/dev/zero of=swap_file bs=1024k count=num_mb
+        # mkswap swap_file
+        # swapon swap_file  
+        
+             
