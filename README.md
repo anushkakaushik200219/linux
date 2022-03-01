@@ -20,10 +20,15 @@ This tutorial will help you get started with Linux.
 
 # Table of Content:
 -    Introduction
+-    
     --   Components of Linux
+    
     --   Linux Distribution/Flavours
+    
     --   Levels and Layers of Abstraction
+    
     --   The Kernal (Process, Memory, Device Drivers and their Management)
+    
  
 -    Basic Commands and Directory Hierarchy
     --   Bourne Shell/Shell
