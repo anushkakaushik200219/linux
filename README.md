@@ -2,12 +2,12 @@
 
 # LINUX
 
-This tutorial will help you get started with Linux.
+#### This tutorial will help you get started with Linux.
 
 
 
 ```bash
- Audience of this tutorial are beginners, so don't expect advanced concepts.
+ #### Audience of this tutorial are beginners, so don't expect advanced concepts.
 ```
 
 
