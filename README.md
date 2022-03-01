@@ -21,80 +21,80 @@ This tutorial will help you get started with Linux.
 # Table of Content:
 -    Introduction
     
-    --   Components of Linux
+      --   Components of Linux
 
-    --   Linux Distribution/Flavours
+      --   Linux Distribution/Flavours
 
-    --   Levels and Layers of Abstraction
+      --   Levels and Layers of Abstraction
 
-    --   The Kernal (Process, Memory, Device Drivers and their Management)
+      --   The Kernal (Process, Memory, Device Drivers and their Management)
     
  
 -    Basic Commands and Directory Hierarchy
 
-    --   Bourne Shell/Shell
-    
-    --   Basic and Intermediate Commands
-    
-    --   Files modes and permission
-    
-    --   Navigating Linux Directory
-    
-    --   Archiving, Compressing, and Dot file
+      --   Bourne Shell/Shell
+
+      --   Basic and Intermediate Commands
+
+      --   Files modes and permission
+
+      --   Navigating Linux Directory
+
+      --   Archiving, Compressing, and Dot file
     
  
  
 -    Devices, Disk, and Filesystem
 
-    --   Device Name Summary
-    
-    --   Filesystem
-    
-    --   Partitioning Disk and Swap space
+      --   Device Name Summary
+
+      --   Filesystem
+
+      --   Partitioning Disk and Swap space
     
  
  
 -    How the Linux Kernal Boot and User Space Start
     
-    --   Kernal Parameters
-    
-    --   Boot Loaders
-    
-    --   GRUB and UEFI
-    
-    --   INIT
-    
-    --   System V Runlevels
+      --   Kernal Parameters
+
+      --   Boot Loaders
+
+      --   GRUB and UEFI
+
+      --   INIT
+
+      --   System V Runlevels
     
 -    Processes and Resource Utilization
     
-    --   System Call
-    
-    --   Tracing Program Execution
-    
-    --   Resource Monitoring
-    
-    --   I/O Monitoring
+      --   System Call
+
+      --   Tracing Program Execution
+
+      --   Resource Monitoring
+
+      --   I/O Monitoring
     
  
 -    Networking and Its Configuration
     
-    --   Network Basic
-    
-    --   Resolving Hostnames
-    
-    --   Firewalls
-    
-    --   SSH
-    
-    --   Diagnostic Tools (Isof, tcpdump, netcat, Port scanning )
+      --   Network Basic
+
+      --   Resolving Hostnames
+
+      --   Firewalls
+
+      --   SSH
+
+      --   Diagnostic Tools (Isof, tcpdump, netcat, Port scanning )
     
     
 -    Shell Scripting
 
-    --   Basics
-    
-    --   Shell Script Utilities
+      --   Basics
+
+      --   Shell Script Utilities
     
 
 # INTRODUCTION
@@ -511,9 +511,9 @@ the contents of your home directory. For example, ls doesn’t list dot
 files unless you use the -a option. In addition, shell globs don’t match
 dot files unless you explicitly use a pattern such as .*.
 ### NOTE
-        You can run into problems with globs because .* matches . and .. (the current and
-        parent directories). You may wish to use a pattern such as .[^.]* or .??* to get all
-        dot files except the current and parent directories.
+         You can run into problems with globs because .* matches . and .. (the current and
+         parent directories). You may wish to use a pattern such as .[^.]* or .??* to get all
+         dot files except the current and parent directories.
  
  - ## Device Name Summary
 
